@@ -14,6 +14,8 @@ Sample input:
 
 Sample Response:
 
-`{'Pounds of CO2E emission per car on gasoline (22 mpg)': 155.10192509045453,
+```{'Pounds of CO2E emission per car on gasoline (22 mpg)': 155.10192509045453,
+
  'Pounds of CO2E emission per car on diesel (22 mpg)': 177.67500405218186,
-'Pounds of CO2E emission per passenger on bus': 37.00631578947368}`
+
+'Pounds of CO2E emission per passenger on bus': 37.00631578947368}```
