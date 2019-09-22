@@ -6,7 +6,7 @@ from flask import Flask, request
 
 # def distance_coords(coords_1, coords_2):
 #     """
-#     Get the distance between two coordinates 
+#     Get the distance between two coordinates
 #     """
 #     return geopy.distance.vincenty(coords_1, coords_2).miles
 
@@ -24,15 +24,16 @@ def address():
     # coords_1 = inputs['coords_1']
     # coords_2 = inputs['coords_2']
     car_distance_miles = inputs['car_distance']
-    transit_distance_miles = inputs['transit_distance']
+    bus_distance_miles = inputs['bus_distance']
+    train_distance_miles = inputs['train_distance']
     # if inputs['passengers'] < 1:
     #     passengers = 1
     # else:
-        # passengers = inputs['passengers']
-    if inputs['mpg'] > 0:
-        mpg = inputs['mpg']
-    else:
-        mpg = 22.0
+    # passengers = inputs['passengers']
+    # if inputs['mpg'] > 0:
+    #     car_mpg = inputs['mpg']
+    # else:
+    avg_car_mpg = 22.0
 
     # car, bus, rail
 
@@ -42,7 +43,7 @@ def address():
     # Emission rate
     co2e_lbs_per_gas_gal = 19.830
     co2e_lbs_per_diesel_gal = 22.716
-    motor_coach_co2_lbs_per_passenger_mile = .17 / .988 # CO2 equivalents conversion
+    bus_co2_lbs_per_passenger_mile = .17 / .988  # CO2 equivalents conversion
     train_co2e_lbs_per_passenger_mile = .31
     # flight_co2e_lbs_per_passenger_mile = .39
 
@@ -55,14 +56,18 @@ def address():
     # rf_factor = 2
 
     # CO2E Emission
-    car_gas_co2e_emission_per_vehicle = car_distance_miles * co2e_lbs_per_gas_gal / mpg
-    car_diesel_co2e_emission_per_vehicle = car_distance_miles * co2e_lbs_per_diesel_gal / mpg
+    car_gas_co2e_emission_per_vehicle = car_distance_miles * \
+        co2e_lbs_per_gas_gal / avg_car_mpg
+    car_diesel_co2e_emission_per_vehicle = car_distance_miles * \
+        co2e_lbs_per_diesel_gal / avg_car_mpg
+    bus_emission_per_passenger = bus_co2_lbs_per_passenger_mile * bus_distance_miles
+    train_emission_per_passenger = train_co2e_lbs_per_passenger_mile * train_distance_miles
     # flight_emission_per_passenger = flight_co2e_lbs_per_passenger_mile * flight_distance_miles * rf_factor
-    train_emission_per_passenger = train_co2e_lbs_per_passenger_mile * transit_distance_miles
 
-    # use a dictionary to format output for json
+    # Use a dictionary to format output for json
     out = {'Pounds of CO2E emission per car on gasoline (22 mpg)': car_gas_co2e_emission_per_vehicle,
            'Pounds of CO2E emission per car on diesel (22 mpg)': car_diesel_co2e_emission_per_vehicle,
+           'Pounds of CO2E emission per passenger on bus': bus_emission_per_passenger,
            'Pounds of CO2E emission per passenger on train': train_emission_per_passenger}
 
     # give output to sender.
