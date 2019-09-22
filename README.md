@@ -7,11 +7,15 @@ Takes in json file with key = `car_distance` and `bus_distance` with values of `
 Returns the CO2 equivalent emission in lbs per car on gasoline/diesel and per passenger on bus.
 
 Sample input:
+
 `input = {"car_distance": 277.093,
           "bus_distance": 281.248}`
 
 
 Sample Response:
+
 `{'Pounds of CO2E emission per car on gasoline (22 mpg)': 155.10192509045453,
+
  'Pounds of CO2E emission per car on diesel (22 mpg)': 177.67500405218186,
- 'Pounds of CO2E emission per passenger on bus': 37.00631578947368}`
+
+'Pounds of CO2E emission per passenger on bus': 37.00631578947368}`
